@@ -3,7 +3,7 @@ from random import randint
 from pathlib import Path
 
 # ====== Config ======
-WIDTH, HEIGHT = 400, 600
+WIDTH, HEIGHT = 400, 700
 GREEN = (0, 200, 0)
 BLUE  = (0, 0, 255)
 RED   = (255, 0, 0)
