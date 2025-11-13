@@ -3,11 +3,12 @@ from random import randint
 from pathlib import Path
 
 # ====== Config ======
-WIDTH, HEIGHT = 400, 700
+WIDTH, HEIGHT = 400, 600
 GREEN = (0, 200, 0)
 BLUE  = (0, 0, 255)
 RED   = (255, 0, 0)
 BLACK = (0, 0, 0)
+YELLOW = (255, 255, 0)
 
 TUBE_WIDTH    = 50
 TUBE_VELOCITY = 3
@@ -129,6 +130,9 @@ async def main():
         tube3_rect_inv = pygame.draw.rect(
             screen, BLUE, (tube3_x, tube3_height + TUBE_GAP, TUBE_WIDTH, HEIGHT - tube3_height - TUBE_GAP)
         )
+        # top & bottom walls
+        top_rect = pygame.draw.rect(screen, YELLOW, (0, 0, 400, 30))
+        bot_rect = pygame.draw.rect(screen, YELLOW, (0, 570, 400, 30))
 
         # bird
         if bird_image:
@@ -148,7 +152,7 @@ async def main():
             score += 1; tube3_pass = True
 
         # collisions
-        for tube in (tube1_rect, tube2_rect, tube3_rect, tube1_rect_inv, tube2_rect_inv, tube3_rect_inv):
+        for tube in (tube1_rect, tube2_rect, tube3_rect, tube1_rect_inv, tube2_rect_inv, tube3_rect_inv, top_rect, bot_rect):
             if bird_rect.colliderect(tube) and not pausing:
                 pausing = True
                 tube_velocity = 0
@@ -157,8 +161,8 @@ async def main():
         if pausing:
             game_over_txt = font.render(f"Game Over, Score: {score}", True, BLACK)
             press_space_txt = font.render("Press SPACE or TAP to continue", True, BLACK)
-            screen.blit(game_over_txt, (100, 200))
-            screen.blit(press_space_txt, (60, 230))
+            screen.blit(game_over_txt, (100, 80))
+            screen.blit(press_space_txt, (60, 100))
 
         pygame.display.flip()
         clock.tick(60)
